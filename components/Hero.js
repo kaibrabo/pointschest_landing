@@ -7,16 +7,40 @@ export default function Hero() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const inputRef = useRef(null)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email address.')
       return
     }
+
     setError('')
-    setSubmitted(true)
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data?.message || 'Unable to submit email.')
+      }
+
+      setSubmitted(true)
+      setEmail('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to submit email.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,10 +65,13 @@ export default function Hero() {
 
           {submitted ? (
             <div className={styles.confirm}>
-              <span className={styles.confirmIcon}>✓</span>
               <p>
-                <strong>You&rsquo;re on the list!</strong> We&rsquo;ll let you
-                know when PointsChest launches.
+                <strong>You&rsquo;re on the list! </strong>
+                <span className={styles.confirmIcon}>✓</span>
+              </p>
+              <p>
+
+                We&rsquo;ll email you when PointsChest launches.
               </p>
             </div>
           ) : (
@@ -58,9 +85,10 @@ export default function Hero() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 aria-label="Email address"
+                disabled={loading}
               />
-              <button className={styles.submit} type="submit">
-                Get Early Access
+              <button className={styles.submit} type="submit" disabled={loading}>
+                {loading ? 'Submitting...' : 'Get Early Access'}
               </button>
             </form>
           )}
