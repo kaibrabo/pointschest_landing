@@ -54,7 +54,7 @@ export default function Hero() {
           <h1 className={styles.headline}>
             Find the best credit card
             <br />
-            for how you actually spend.
+            for how you <i>actually</i> spend.
           </h1>
 
           <p className={styles.subheadline}>
