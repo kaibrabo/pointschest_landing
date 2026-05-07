@@ -22,7 +22,8 @@ async function addToWaitlist(email) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}))
-    throw new Error(error.error?.message || 'Failed to add to waitlist')
+    console.error('Airtable error:', error)
+    throw new Error(error.error?.message || `Failed to add to waitlist: ${response.status}`)
   }
 
   return response.json()

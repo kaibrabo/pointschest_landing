@@ -70,7 +70,6 @@ export default function Hero() {
                 <span className={styles.confirmIcon}>✓</span>
               </p>
               <p>
-
                 We&rsquo;ll email you when PointsChest launches.
               </p>
             </div>
