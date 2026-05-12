@@ -15,7 +15,11 @@ export const metadata = {
       'Search by category, see the top-earning cards, and apply in one tap.',
     type: 'website',
   },
-  viewport: 'width=device-width, initial-scale=1',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }) {

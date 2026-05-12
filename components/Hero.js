@@ -115,7 +115,7 @@ export default function Hero() {
         {/* ── Right: app screenshot ── */}
         <div className={styles.mockup}>
           <img
-            src="/light-sim.png"
+            src="/light-sim-hero.png"
             alt="PointsChest app screenshot"
             className={styles.mockupImg}
           />
