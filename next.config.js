@@ -10,6 +10,10 @@ const nextConfig = {
         source: '/app/:path*',
         destination: 'https://pointschest-app.vercel.app/:path*', // TODO: Replace with your actual Expo web app URL
       },
+      {
+        source: '/_expo/:path*',
+        destination: 'https://pointschest-app.vercel.app/_expo/:path*', 
+      },
     ]
   },
 }
